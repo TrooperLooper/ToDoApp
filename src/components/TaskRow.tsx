@@ -4,9 +4,9 @@ import { useState } from "react";
 import type { Task } from "./types.tsx";
 
 const priorityMap = {
-  high: { num: 1, color: "bg-red-500" },
-  medium: { num: 2, color: "bg-yellow-400" },
-  low: { num: 3, color: "bg-green-500" },
+  high: { num: 1, color: "#d19b90" },
+  medium: { num: 2, color: "#dabbc5" },
+  low: { num: 3, color: "#8ebc99" },
 };
 
 type TaskRowProps = {
@@ -29,12 +29,12 @@ export function TaskRow({
   const [editText, setEditText] = useState(task.text);
 
   return (
-    <div className="flex items-center bg-[#e0f0ec] rounded-lg px-4 py-2">
+    <div className="flex items-center bg-[#d0e9e2] rounded-lg px-4 py-2">
       <input
         type="checkbox"
         checked={task.status === "done"}
         onChange={() => onToggle(task.id)}
-        className="mr-3 h-5 w-5 accent-blue-500"
+        className="mr-3 h-5 w-5 border border-black border-1 rounded-none shadow-none"
       />
       {editingId === task.id ? (
         <input
@@ -58,24 +58,24 @@ export function TaskRow({
           {task.text}
         </span>
       )}
-      <button
-        onClick={() => onEdit(task)}
-        className="mx-2 text-gray-600 hover:text-blue-600"
-        aria-label="Edit"
-      >
-        <FontAwesomeIcon icon={faPencilAlt} />
+      <button onClick={() => onEdit(task)} className="mx-2" aria-label="Edit">
+        <FontAwesomeIcon icon={faPencilAlt} style={{ color: "#273532" }} />
       </button>
       <button onClick={() => onDelete(task.id)} className="ml-2">
-        <FontAwesomeIcon icon={faTrashCan} />
+        <FontAwesomeIcon icon={faTrashCan} style={{ color: "#273532" }} />
       </button>
       <span
         className={`w-6 h-6 flex items-center justify-center rounded-full ml-2 text-white font-bold ${
-          task.priority === "high"
-            ? "bg-red-400"
-            : task.priority === "medium"
-            ? "bg-yellow-400"
-            : "bg-green-400"
+          task.priority === "high" ? "" : task.priority === "medium" ? "" : ""
         }`}
+        style={{
+          backgroundColor:
+            task.priority === "high"
+              ? "#e19894"
+              : task.priority === "medium"
+              ? "#e3bc59"
+              : "#82c489",
+        }}
       >
         {task.priority === "high"
           ? "1"

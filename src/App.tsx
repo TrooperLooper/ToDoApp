@@ -6,7 +6,6 @@ function App() {
     <div>
       <div>
         <TaskManager />
-        <Weather />
       </div>
     </div>
   );

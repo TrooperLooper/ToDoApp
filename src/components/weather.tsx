@@ -62,10 +62,10 @@ export default function Weather() {
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center mb-2">
-        <span className="text-2xl font-bold mr-2">
+        <span className="text-2xl font-bold mr-4">
           {temp !== null ? `${temp}°` : "--"}
         </span>
-        <img src={img} alt="weather" className="w-12 h-12" />
+        <img src={img} alt="weather" className="w-24 h-24" />
       </div>
       <span className="text-center">{message}</span>
     </div>

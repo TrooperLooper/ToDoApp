@@ -1,5 +1,6 @@
 import { FilterIcon } from "./FilterIcon";
-import type { Status } from "./types";
+
+export type Status = "all" | "pending" | "done";
 
 export type FilterBarProps = {
   filter: Status;
@@ -32,7 +33,7 @@ export function FilterBar({
           Pending
         </button>
         <button
-          onClick={() => setFilter("completed")}
+          onClick={() => setFilter("done")}
           className="px-2 py-1 rounded bg-green-200"
         >
           Completed
