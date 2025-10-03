@@ -16,7 +16,7 @@ export default function Weather() {
         const response = await fetch(url);
         const data = await response.json();
         setTemp(Math.round(data.main.temp));
-        setCondition(data.weather[0].main); // e.g. "Clear", "Rain", "Clouds"
+        setCondition(data.weather[0].main);
       } catch (error) {
         setTemp(null);
         setCondition("standard");
@@ -31,43 +31,67 @@ export default function Weather() {
           fetchWeather(position.coords.latitude, position.coords.longitude);
         },
         () => {
-          // If user denies location, fallback to a default (e.g. Helsingborg)
+          // Default to Helsingborg coordinates if geolocation is denied
           fetchWeather(56.0465, 12.6945);
         }
       );
     } else {
-      // If geolocation not available, fallback to a default
       fetchWeather(56.0465, 12.6945);
     }
   }, []);
 
+  // Determine weather image and message based on condition
   let img = weatherStandard;
+  let imgAlt = "Partly cloudy weather";
   let message = "Clear skies today";
+
   if (condition.toLowerCase().includes("sun")) {
     img = weatherSun;
+    imgAlt = "Sunny weather";
     message = "Remember your sunglasses today";
   } else if (condition.toLowerCase().includes("rain")) {
     img = weatherRain;
+    imgAlt = "Rainy weather";
     message = "Remember your umbrella today";
   }
 
+  // Loading state with accessibility
   if (loading) {
     return (
-      <div className="flex flex-col items-center">
+      <div
+        className="flex flex-col items-center"
+        role="status"
+        aria-live="polite"
+      >
         <span>Loading weather...</span>
+        <span className="sr-only">
+          Please wait while we fetch the weather information
+        </span>
       </div>
     );
   }
 
+  // More descriptive alt text based on actual weather conditions
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex items-center mb-2">
-        <span className="text-2xl font-bold mr-4">
-          {temp !== null ? `${temp}°` : "--"}
+    <section
+      className="flex flex-col items-center"
+      aria-labelledby="weather-heading"
+    >
+      <h2 id="weather-heading" className="sr-only">
+        Current Weather
+      </h2>
+      <div className="flex items-center" aria-live="polite">
+        <span
+          className="text-2xl font-bold mr-4"
+          aria-label={`Temperature: ${temp} degrees celsius`}
+        >
+          {temp}°
         </span>
-        <img src={img} alt="weather" className="w-24 h-24" />
+        <img src={img} alt={imgAlt} className="w-16 h-16 sm:w-20 sm:h-20" />
       </div>
-      <span className="text-center">{message}</span>
-    </div>
+      <p className="text-center mt-2" aria-label={`Weather tip: ${message}`}>
+        {message}
+      </p>
+    </section>
   );
 }

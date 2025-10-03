@@ -1,10 +1,11 @@
 import { FilterIcon } from "./FilterIcon";
+import type { FilterStatus } from "./types";
 
 export type Status = "all" | "pending" | "done";
 
 export type FilterBarProps = {
-  filter: Status;
-  setFilter: React.Dispatch<React.SetStateAction<Status>>;
+  filter: FilterStatus;
+  setFilter: React.Dispatch<React.SetStateAction<FilterStatus>>;
   onSortClick: () => void;
   sorted: boolean;
   showSearch: boolean;

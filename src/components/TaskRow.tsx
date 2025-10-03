@@ -4,19 +4,20 @@ import { useState } from "react";
 import type { Task } from "./types.tsx";
 
 const priorityMap = {
-  high: { num: 1, color: "#d19b90" },
-  medium: { num: 2, color: "#dabbc5" },
-  low: { num: 3, color: "#8ebc99" },
+  high: { num: 1, color: "#ea9099" },
+  medium: { num: 2, color: "#e8c34a" },
+  low: { num: 3, color: "#7cc08c" },
 };
 
-type TaskRowProps = {
+interface TaskRowProps {
   task: Task;
   onToggle: (id: number) => void;
   onEdit: (task: Task) => void;
   onDelete: (id: number) => void;
   onUpdate: (id: number, text: string) => void;
   editingId: number | null;
-};
+  setEditingId: (id: number | null) => void; // Add this line
+}
 
 export function TaskRow({
   task,
@@ -25,6 +26,7 @@ export function TaskRow({
   onDelete,
   onUpdate,
   editingId,
+  setEditingId, // Add this parameter
 }: TaskRowProps) {
   const [editText, setEditText] = useState(task.text);
 
@@ -34,7 +36,17 @@ export function TaskRow({
         type="checkbox"
         checked={task.status === "done"}
         onChange={() => onToggle(task.id)}
-        className="mr-3 h-5 w-5 border border-black border-1 rounded-none shadow-none"
+        className="mr-3 h-4 w-4 border border-black rounded-none shadow-none appearance-none checked:bg-[#f5f7ed] checked:border-black checked:after:border-black"
+        style={{
+          backgroundColor: "#f5f7ed",
+          backgroundImage:
+            task.status === "done"
+              ? "url(\"data:image/svg+xml,%3csvg viewBox='1 1 14 14' fill='black' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e\")"
+              : "",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       />
       {editingId === task.id ? (
         <input
@@ -43,7 +55,7 @@ export function TaskRow({
           onBlur={() => onUpdate(task.id, editText)}
           onKeyDown={(e) => {
             if (e.key === "Enter") onUpdate(task.id, editText);
-            if (e.key === "Escape") onEdit({ id: null, text: "" });
+            if (e.key === "Escape") setEditingId(null);
           }}
           className="flex-1 p-2 border rounded focus:outline-none"
           autoFocus
@@ -65,23 +77,10 @@ export function TaskRow({
         <FontAwesomeIcon icon={faTrashCan} style={{ color: "#273532" }} />
       </button>
       <span
-        className={`w-6 h-6 flex items-center justify-center rounded-full ml-2 text-white font-bold ${
-          task.priority === "high" ? "" : task.priority === "medium" ? "" : ""
-        }`}
-        style={{
-          backgroundColor:
-            task.priority === "high"
-              ? "#e19894"
-              : task.priority === "medium"
-              ? "#e3bc59"
-              : "#82c489",
-        }}
+        className="w-6 h-6 flex items-center justify-center rounded-full ml-2 text-white font-bold"
+        style={{ backgroundColor: priorityMap[task.priority].color }}
       >
-        {task.priority === "high"
-          ? "1"
-          : task.priority === "medium"
-          ? "2"
-          : "3"}
+        {priorityMap[task.priority].num}
       </span>
     </div>
   );
