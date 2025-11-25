@@ -4,7 +4,7 @@ _A retro-styled task management dashboard with weather integration, built with R
 
 ---
 
-![Header Image](demo.png)
+<img src="demo.png" alt="Header Image" style="height:100px;" />
 
 ---
 
