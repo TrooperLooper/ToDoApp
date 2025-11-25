@@ -11,13 +11,13 @@ export default function Weather() {
   useEffect(() => {
     const fetchWeather = async (lat: number, lon: number) => {
       try {
-        const apiKey = "350817c71258db050226dd69255c5ee7";
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         const response = await fetch(url);
         const data = await response.json();
         setTemp(Math.round(data.main.temp));
         setCondition(data.weather[0].main); // e.g. "Clear", "Rain", "Clouds"
-      } catch (error) {
+      } catch {
         setTemp(null);
         setCondition("standard");
       } finally {

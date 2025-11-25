@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TaskRow } from "./TaskRow";
-import type { Task, Priority, Status } from "./types";
+import type { Task, Priority } from "./types";
 import Weather from "./weather";
 import { FilterIcon } from "./FilterIcon";
 import headerImg from "../assets/headerimg.png";
-import { FaSearch } from "react-icons/fa"; // If using react-icons
+import { FaSearch } from "react-icons/fa";
 
 const initialTasks: Task[] = [
   // Example tasks or fetch from storage/api
@@ -15,33 +15,28 @@ export default function TaskManager() {
   const [newTask, setNewTask] = useState("");
   const [newPriority, setNewPriority] = useState<Priority>("low");
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editText, setEditText] = useState("");
-  const [filter, setFilter] = useState<Status>("all");
+  const [filter, setFilter] = useState<"all" | "pending" | "done">("all");
   const [searchText, setSearchText] = useState("");
-  const [weatherTemp, setWeatherTemp] = useState<number>(0);
-  const [weatherCondition, setWeatherCondition] = useState<string>("");
   const [sortByPriority, setSortByPriority] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
 
+  // Load tasks from localStorage on mount
   useEffect(() => {
-    // Example: Fetch weather for Helsingborg
-    const fetchWeather = async () => {
+    const savedTasks = localStorage.getItem("tasks");
+    if (savedTasks) {
       try {
-        const apiKey = "YOUR_API_KEY";
-        const city = "Helsingborg";
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=en`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setWeatherTemp(Math.round(data.main.temp));
-        setWeatherCondition(data.weather[0].main); // e.g. "Rain", "Clear", "Clouds"
-      } catch (error) {
-        setWeatherTemp(0);
-        setWeatherCondition("standard");
+        setTasks(JSON.parse(savedTasks));
+      } catch {
+        console.error("Failed to load tasks from localStorage");
       }
-    };
-    fetchWeather();
+    }
   }, []);
+
+  // Save tasks to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   // Add Task
   const addTask = () => {
@@ -78,14 +73,12 @@ export default function TaskManager() {
   // Start Editing
   const handleEdit = (task: Task) => {
     setEditingId(task.id);
-    setEditText(task.text);
   };
 
   // Update Task
   const updateTask = (id: number, text: string) => {
     setTasks(tasks.map((task) => (task.id === id ? { ...task, text } : task)));
     setEditingId(null);
-    setEditText("");
   };
 
   // Filtered & Searched Tasks
@@ -235,7 +228,6 @@ export default function TaskManager() {
             <div className="flex items-center h-full ml-1 mr-4">
               <FilterIcon
                 className="w-6 h-6"
-                style={{ color: "#273532" }}
                 onClick={() => setSortByPriority((prev) => !prev)}
               />
             </div>

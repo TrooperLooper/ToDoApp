@@ -3,12 +3,6 @@ import { faTrashCan, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import type { Task } from "./types.tsx";
 
-const priorityMap = {
-  high: { num: 1, color: "#d19b90" },
-  medium: { num: 2, color: "#dabbc5" },
-  low: { num: 3, color: "#8ebc99" },
-};
-
 type TaskRowProps = {
   task: Task;
   onToggle: (id: number) => void;
@@ -34,7 +28,7 @@ export function TaskRow({
         type="checkbox"
         checked={task.status === "done"}
         onChange={() => onToggle(task.id)}
-        className="mr-3 h-5 w-5 border border-black border-1 rounded-none shadow-none"
+        className="mr-3 h-5 w-5 border border-black rounded-none shadow-none"
       />
       {editingId === task.id ? (
         <input
@@ -43,7 +37,7 @@ export function TaskRow({
           onBlur={() => onUpdate(task.id, editText)}
           onKeyDown={(e) => {
             if (e.key === "Enter") onUpdate(task.id, editText);
-            if (e.key === "Escape") onEdit({ id: null, text: "" });
+            if (e.key === "Escape") setEditText(task.text);
           }}
           className="flex-1 p-2 border rounded focus:outline-none"
           autoFocus
