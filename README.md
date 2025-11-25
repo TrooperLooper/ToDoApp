@@ -1,6 +1,6 @@
 # Today's 2DO - Task Manager
 
-_A retro-styled task management dashboard with weather integration, built with React, TypeScript, Vite, and Tailwind CSS. Features a complete CRUD task manager with filtering, sorting, and local persistence - all wrapped in a sweet 1950s aesthetic._
+_A retro-styled task management dashboard with weather integration, built with React, TypeScript, Vite, and Tailwind CSS. Features a complete CRUD task manager with filtering, sorting, and local persistence - all wrapped in handcrafted sweet 1950s illustrations & aesthetic._
 
 ---
 
@@ -22,11 +22,11 @@ _A retro-styled task management dashboard with weather integration, built with R
 
   - 🌤️ Real-time weather using OpenWeatherMap API
   - 📍 Geolocation detection with fallback to default location
-  - 🎨 Dynamic weather-based imagery (sun/rain/standard)
+  - 🎨 Dynamic weather-based illustrations (sun/rain/default)
   - 💬 Contextual weather messages
 
 - **Design & UX**
-  - 🎭 **1950s retro aesthetic** with period-appropriate colors and typography
+  - 🕰️ **1950s retro aesthetic** with period-appropriate colors and typography
   - 📱 Responsive layout
   - ⌨️ Keyboard shortcuts (Enter to add/confirm, Escape to cancel)
   - 🖱️ Double-click to edit tasks
@@ -148,7 +148,7 @@ VITE_WEATHER_API_KEY=your_api_key_here
 
 Get your free API key at: https://openweathermap.org/api
 
-**Note**: The `.env.local` file is git-ignored for security.
+**Note**: `.env.local` file is git-ignored for security.
 
 ---
 
@@ -174,18 +174,6 @@ Get your free API key at: https://openweathermap.org/api
 
 ---
 
-## 🚦 Future Enhancements
-
-- [ ] Dark mode toggle
-- [ ] Task categories/tags
-- [ ] Recurring tasks
-- [ ] Task due dates and reminders
-- [ ] Multiple weather locations
-- [ ] Cloud sync with backend
-- [ ] Mobile app version
-
----
-
 ## 🧪 Testing
 
 ```bash
@@ -206,7 +194,7 @@ MIT
 
 ## 👥 Credits
 
-**Created by**: Sandra Weberg & Lars Munck
+**Code & graphic design created by**: Lars Munck
 
 **APIs Used**:
 
