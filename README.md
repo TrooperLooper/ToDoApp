@@ -147,7 +147,7 @@ This project requires an OpenWeatherMap API key for weather functionality:
 VITE_WEATHER_API_KEY=your_api_key_here
 ```
 
-Get your free API key at: https://openweathermap.org/api
+You can get a free API key at: https://openweathermap.org/api
 
 **Note**: `.env.local` file is git-ignored for security.
 
@@ -156,7 +156,7 @@ Get your free API key at: https://openweathermap.org/api
 ## 🎨 Design Highlights
 
 - **1950s Color Palette**: Soft greens, muted pastels, and retro accents
-- **Typography**: Clean, readable fonts with period-appropriate sizing
+- **Typography**: Clean, readable period-appropriate fonts
 - **Layout**: Centered card design with generous spacing
 - **Interactive Elements**: Hover states and smooth transitions
 - **Accessibility**: Keyboard navigation and screen reader support
