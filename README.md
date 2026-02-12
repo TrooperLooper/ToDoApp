@@ -186,12 +186,6 @@ npm run build
 
 ---
 
-## 📄 License
-
-MIT
-
----
-
 ## 👥 Credits
 
 **Code & graphic design created by**: Lars Munck
