@@ -1,6 +1,7 @@
 # Today's 2DO - Task Manager
 
-_A retro-styled task management dashboard with weather integration, built with React, TypeScript, Vite, and Tailwind CSS. Features a complete CRUD task manager with filtering, sorting, and local persistence - all wrapped in handcrafted sweet 1950s illustrations & aesthetic._
+_A retro-styled task management dashboard with weather integration, built with React, TypeScript, Vite, and Tailwind CSS. 
+This was a backend school assignment practicing building a complete CRUD task manager with filtering, sorting, and local persistence (and a practical weather indicator) - wrapped in handcrafted sweet 1950s illustrations, colors & typography._
 
 ---
 
