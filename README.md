@@ -1,7 +1,7 @@
 # Today's 2DO - Task Manager
 
-_A retro-styled task management dashboard with weather API integration, built with React, TypeScript, Vite, and Tailwind CSS.
-This was a backend school assignment practicing building a complete CRUD task manager with filtering, sorting, and local persistence (and a practical weather indicator) - custom styling & 1950s themed illustrations, colors & typography._
+_A retro-styled task management dashboard with weather integration, built with React, TypeScript, Vite, and Tailwind CSS.
+This was a backend school assignment practicing building a complete CRUD task manager with filtering, sorting, and local persistence (and a practical weather indicator) - wrapped in handcrafted sweet 1950s illustrations, colors & typography._
 
 ---
 
@@ -114,7 +114,7 @@ src/
 │   ├── types.tsx            # TypeScript type definitions
 │   └── Header.tsx           # Header component
 ├── assets/
-│   ├── headerimg.png        # 1950s style header
+│   ├── headerImg.png        # 1950s style header
 │   ├── weather_sun.png      # Sun weather icon
 │   ├── weather_rain.png     # Rain weather icon
 │   └── weather_standard.png # Default weather icon
@@ -145,7 +145,7 @@ This project requires an OpenWeatherMap API key for weather functionality:
 VITE_WEATHER_API_KEY=your_api_key_here
 ```
 
-You can get a free API key at: https://openweathermap.org/api
+Get your free API key at: https://openweathermap.org/api
 
 **Note**: `.env.local` file is git-ignored for security.
 
@@ -154,7 +154,7 @@ You can get a free API key at: https://openweathermap.org/api
 ## 🎨 Design Highlights
 
 - **1950s Color Palette**: Soft greens, muted pastels, and retro accents
-- **Typography**: Clean, readable period-appropriate fonts
+- **Typography**: Clean, readable fonts with period-appropriate sizing
 - **Layout**: Centered card design with generous spacing
 - **Interactive Elements**: Hover states and smooth transitions
 - **Accessibility**: Keyboard navigation and screen reader support
