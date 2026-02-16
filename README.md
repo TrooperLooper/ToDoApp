@@ -5,7 +5,7 @@ This was a backend school assignment practicing building a complete CRUD task ma
 
 ---
 
-<img src="demo.png" alt="Header Image" style="height:400px;" />
+<img src="demo.png" alt="Header Image" style="height:450px;" />
 
 ---
 
