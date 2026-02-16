@@ -3,7 +3,7 @@ import { TaskRow } from "./TaskRow";
 import type { Task, Priority } from "./types";
 import Weather from "./weather";
 import { FilterIcon } from "./FilterIcon";
-import headerImg from "../assets/headerImg.png";
+import headerImg from "../assets/headerimg.png";
 import { FaSearch } from "react-icons/fa";
 
 const initialTasks: Task[] = [
@@ -60,8 +60,8 @@ export default function TaskManager() {
       tasks.map((task) =>
         task.id === id
           ? { ...task, status: task.status === "pending" ? "done" : "pending" }
-          : task
-      )
+          : task,
+      ),
     );
   };
 
@@ -89,14 +89,14 @@ export default function TaskManager() {
       return true; // "all"
     })
     .filter((task) =>
-      task.text.toLowerCase().includes(searchText.toLowerCase())
+      task.text.toLowerCase().includes(searchText.toLowerCase()),
     );
 
   const priorityOrder = { high: 1, medium: 2, low: 3 };
 
   const displayedTasks = sortByPriority
     ? [...filteredTasks].sort(
-        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority],
       )
     : filteredTasks;
 
