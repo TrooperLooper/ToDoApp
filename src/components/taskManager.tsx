@@ -3,7 +3,7 @@ import { TaskRow } from "./TaskRow";
 import type { Task, Priority } from "./types";
 import Weather from "./weather";
 import { FilterIcon } from "./FilterIcon";
-import headerImg from "../assets/headerimg.png";
+const headerImg = "/headerimg.png";
 import { FaSearch } from "react-icons/fa";
 
 const initialTasks: Task[] = [
