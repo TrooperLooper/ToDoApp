@@ -22,7 +22,7 @@ export default function Weather() {
         const response = await fetch(url);
         const data = await response.json();
         setTemp(Math.round(data.main.temp));
-        setCondition(data.weather[0].main); // e.g. "Clear", "Rain", "Clouds"
+        setCondition(data.weather[0].main); // typ vilken väderlek
       } catch (error) {
         console.error("Weather fetch error:", error);
         setTemp(null);
@@ -57,7 +57,10 @@ export default function Weather() {
   if (conditionLower.includes("clear") || conditionLower.includes("sunny")) {
     img = weatherSun;
     message = "Remember your sunglasses today";
-  } else if (conditionLower.includes("rain") || conditionLower.includes("drizzle")) {
+  } else if (
+    conditionLower.includes("rain") ||
+    conditionLower.includes("drizzle")
+  ) {
     img = weatherRain;
     message = "Remember your umbrella today";
   }
