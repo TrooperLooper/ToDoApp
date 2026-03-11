@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { TaskRow } from "./TaskRow";
 import type { Task, Priority } from "./Types";
-import Weather from "./weather";
+import Weather from "./Weather";
 import { FilterIcon } from "./FilterIcon";
 const headerImg = "/headerimg.png";
 import { FaSearch } from "react-icons/fa";
