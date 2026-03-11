@@ -32,6 +32,8 @@ This was a backend school assignment practicing building a complete CRUD task ma
   - ♿ Accessible UI with ARIA labels
 
 ---
+- [Live Link](https://todays-todoapp.vercel.app)
+---
 
 ## 🚀 Tech Stack
 
@@ -193,6 +195,7 @@ npm run build
 
 - [OpenWeatherMap API](https://openweathermap.org/)
 - [FontAwesome Icons](https://fontawesome.com/)
+
 
 **Libraries**:
 
