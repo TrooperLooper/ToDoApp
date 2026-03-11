@@ -33,7 +33,7 @@ export default function Weather() {
         () => {
           // If user denies location, fallback to a default (e.g. Helsingborg)
           fetchWeather(56.0465, 12.6945);
-        }
+        },
       );
     } else {
       // If geolocation not available, fallback to a default
@@ -61,13 +61,19 @@ export default function Weather() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center mb-2">
-        <span className="text-2xl font-bold mr-4">
+      <div className="flex items-center mb-2 gap-2 sm:gap-3">
+        <span className="text-xl sm:text-2xl md:text-3xl font-bold">
           {temp !== null ? `${temp}°` : "--"}
         </span>
-        <img src={img} alt="weather" className="w-24 h-24" />
+        <img
+          src={img}
+          alt="weather"
+          className="w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24"
+        />
       </div>
-      <span className="text-center">{message}</span>
+      <span className="text-center text-xs sm:text-sm md:text-base">
+        {message}
+      </span>
     </div>
   );
 }

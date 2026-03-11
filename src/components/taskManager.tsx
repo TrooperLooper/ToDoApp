@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { TaskRow } from "./TaskRow";
-import type { Task, Priority } from "./types";
+import type { Task, Priority } from "./Types";
 import Weather from "./weather";
 import { FilterIcon } from "./FilterIcon";
 const headerImg = "/headerimg.png";
@@ -101,82 +101,80 @@ export default function TaskManager() {
     : filteredTasks;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start bg-[#e0f0ec] py-16">
+    <div className="min-h-screen flex flex-col items-center bg-[#e0f0ec] py-6 sm:py-10 px-4 gap-6 sm:gap-10">
       {/* Outer card with darker green */}
-      <div className="w-full max-w-xl bg-[#a6ccbf] rounded-2xl p-8 flex justify-center items-center">
+      <div className="w-full max-w-sm sm:max-w-md bg-[#a6ccbf] rounded-2xl p-4 sm:p-6 flex flex-col flex-1 min-h-0">
         {/* Main card with black border and no color */}
-        <div className="w-full max-w-lg border-2 border-black p-6 ">
+        <div className="w-full border-2 border-black p-4 sm:p-5 flex flex-col flex-1 min-h-0">
           {/* Header image now inside the card */}
           <img
             src={headerImg}
             alt="Today's 2DO Header"
-            className="mx-auto mt-1 mb-8 w-72" // Increased mb-8 for more bottom margin
+            className="mx-auto mt-1 mb-6 sm:mb-7 w-40 sm:w-56"
           />
           {/* Labels above the bar */}
-          <div className="flex justify-between items-center mb-1 px-2">
-            <span className="text-xs font-semibold text-black">
+          <div className="flex justify-between items-center mb-2 sm:mb-3 px-2">
+            <span className="text-xs sm:text-sm font-semibold text-black">
               What should we do today?
             </span>
-            <span className="text-xs font-semibold text-black mr-19">
+            <span className="text-xs sm:text-sm font-semibold text-black">
               Priority
             </span>
           </div>
           {/* Add Task Bar (input + select) */}
-          <div className="flex w-full mb-4 items-center">
+          <div className="flex flex-col sm:flex-row w-full mb-3 sm:mb-4 items-stretch sm:items-center gap-2 sm:gap-3">
             <div className="flex bg-[#f5f7ed] rounded-lg shadow-inner items-center px-2 py-1 flex-1 relative">
               <input
-                className="min-w-0 max-w-[220px] p-2 rounded-l #fcf6ee text-black placeholder-gray-400 border-none focus:outline-none bg-transparent"
+                className="min-w-0 flex-1 p-2 rounded-l #fcf6ee text-xs sm:text-sm text-black placeholder-gray-400 border-none focus:outline-none bg-transparent"
                 placeholder="To do..."
                 value={newTask}
                 onChange={(e) => setNewTask(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addTask()}
               />
               <div className="flex-1" />
-              {/* Priority select and triangle grouped together at the end */}
-              <div className="relative flex items-center">
+              {/* Priority select button with background */}
+              <div className="relative flex items-center bg-black/10 rounded px-2 py-1 ml-1 gap-1.5">
+                <span className="text-xs sm:text-sm font-semibold text-black min-w-fit">
+                  {newPriority === "low"
+                    ? "Low"
+                    : newPriority === "medium"
+                      ? "Med"
+                      : "High"}
+                </span>
                 <select
                   ref={selectRef}
-                  className="p-2 pr-8 rounded bg-[#f5f7ed] text-transparent focus:text-black border-none appearance-none focus:outline-none"
+                  className="absolute inset-0 opacity-0 cursor-pointer"
                   value={newPriority}
                   onChange={(e) => setNewPriority(e.target.value as Priority)}
-                  style={{ minWidth: "70px" }}
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
-                <span
-                  className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
-                  onClick={() => {
-                    if (selectRef.current) {
-                      selectRef.current.focus();
-                      selectRef.current.click(); // This will open the dropdown in most browsers
-                    }
-                  }}
-                  tabIndex={0}
-                  aria-label="Open priority select"
-                  role="button"
+                <svg
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                  className="pointer-events-none flex-shrink-0"
                 >
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                    <path d="M1 1L6 6L11 1" stroke="black" strokeWidth="2" />
-                  </svg>
-                </span>
+                  <path d="M1 1L6 6L11 1" stroke="black" strokeWidth="2" />
+                </svg>
               </div>
             </div>
             <button
-              className="bg-[#70938b] text-white text-lg px-4 h-full rounded-md ml-3"
+              className="bg-[#70938b] text-white text-sm sm:text-base px-6 sm:px-4 py-2 sm:py-3 rounded-md min-h-[44px] w-full sm:w-auto sm:h-full"
               onClick={addTask}
-              style={{ minHeight: "44px" }}
             >
               ADD
             </button>
           </div>
           {/* Tabs and Search Row */}
-          <div className="flex items-center w-full mb-1 h-12">
+          <div className="flex items-center w-full mb-2 sm:mb-3 h-10 sm:h-12 gap-1 sm:gap-2">
             {/* Filter Buttons */}
-            <div className="flex space-x-1">
+            <div className="flex gap-1 sm:gap-2">
               <button
-                className={`px-2 py-1 rounded text-xs ${
+                className={`px-2 sm:px-3 py-1 sm:py-2 rounded text-xs sm:text-sm ${
                   filter === "all" ? "bg-[#d8e0d2]" : ""
                 }`}
                 onClick={() => setFilter("all")}
@@ -184,7 +182,7 @@ export default function TaskManager() {
                 All
               </button>
               <button
-                className={`px-2 py-1 rounded text-xs ${
+                className={`px-2 sm:px-3 py-1 sm:py-2 rounded text-xs sm:text-sm ${
                   filter === "pending" ? "bg-[#d8e0d2]" : ""
                 }`}
                 onClick={() => setFilter("pending")}
@@ -192,7 +190,7 @@ export default function TaskManager() {
                 Pending
               </button>
               <button
-                className={`px-2 py-1 rounded text-xs ${
+                className={`px-2 sm:px-3 py-1 sm:py-2 rounded text-xs sm:text-sm ${
                   filter === "done" ? "bg-[#d8e0d2]" : ""
                 }`}
                 onClick={() => setFilter("done")}
@@ -203,11 +201,10 @@ export default function TaskManager() {
             {/* Spacer to push search and filter icon to the right */}
             <div className="flex-1"></div>
             {/* Search Input + Icons */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-1 sm:gap-2">
               {showSearch && (
                 <input
-                  className="p-1 text-xs rounded bg-[#d8e0d2] border-none focus:outline-none transition-all duration-200 mr-1"
-                  style={{ width: 120 }}
+                  className="p-1 sm:p-2 text-xs sm:text-sm rounded bg-[#d8e0d2] border-none focus:outline-none transition-all duration-200 w-20 sm:w-32"
                   placeholder="Search..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -220,20 +217,20 @@ export default function TaskManager() {
               >
                 <FaSearch
                   className="text-[#273532]"
-                  style={{ width: "18px", height: "18px" }} // 10% smaller than 20px
+                  style={{ width: "16px", height: "16px" }}
                 />
               </button>
             </div>
             {/* Filter Icon aligned right and centered */}
-            <div className="flex items-center h-full ml-1 mr-4">
+            <div className="flex items-center h-full ml-1 sm:ml-2 mr-2 sm:mr-4">
               <FilterIcon
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 onClick={() => setSortByPriority((prev) => !prev)}
               />
             </div>
           </div>
           {/* Task List */}
-          <div className="w-full space-y-2 mb-15">
+          <div className="w-full space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 overflow-y-auto">
             {displayedTasks.map((task) => (
               <TaskRow
                 key={task.id}
@@ -248,12 +245,12 @@ export default function TaskManager() {
           </div>
 
           {/* Dotted line separator */}
-          <div className="my-6 mx-1">
+          <div className="my-4 sm:my-6 mx-1 mt-auto">
             <hr className="border-dotted border-t-2 border-gray-400" />
           </div>
 
           {/* Weather Widget */}
-          <div className="mt-4 w-full flex justify-center">
+          <div className="mt-3 sm:mt-4 w-full flex justify-center pb-2">
             <Weather />
           </div>
         </div>
