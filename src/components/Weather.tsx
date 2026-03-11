@@ -22,7 +22,7 @@ export default function Weather() {
         const response = await fetch(url);
         const data = await response.json();
         setTemp(Math.round(data.main.temp));
-        setCondition(data.weather[0].main); // typ vilken väderlek
+        setCondition(data.weather[0].main); // sparar vadret från API:n
       } catch (error) {
         console.error("Weather fetch error:", error);
         setTemp(null);
@@ -40,13 +40,13 @@ export default function Weather() {
         },
         (error) => {
           console.warn("Geolocation denied or unavailable:", error.message);
-          // If user denies location, fallback to a default (e.g. Helsingborg)
+          // om användaren säger nej till location, använd Helsingborg istället
           fetchWeather(56.0465, 12.6945);
         },
       );
     } else {
       console.warn("Geolocation not available, using fallback location");
-      // If geolocation not available, fallback to a default
+      // geolocation finns inte, så använder vi en standard stad
       fetchWeather(56.0465, 12.6945);
     }
   }, []);

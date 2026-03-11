@@ -7,7 +7,7 @@ const headerImg = "/headerimg.png";
 import { FaSearch } from "react-icons/fa";
 
 const initialTasks: Task[] = [
-  // Example tasks or fetch from storage/api
+  // här kopplas in tasks från API
 ];
 
 export default function TaskManager() {
@@ -21,7 +21,7 @@ export default function TaskManager() {
   const [showSearch, setShowSearch] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
 
-  // Load tasks from localStorage on mount
+  // hämta sparade tasks när komponenten laddar
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
     if (savedTasks) {
@@ -33,12 +33,12 @@ export default function TaskManager() {
     }
   }, []);
 
-  // Save tasks to localStorage whenever they change
+  // spara tasks i localstorage varje gång vi gör något
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  // Add Task
+  // lägga till ny task
   const addTask = () => {
     if (!newTask.trim()) return;
     setTasks([
@@ -54,7 +54,7 @@ export default function TaskManager() {
     setNewPriority("low");
   };
 
-  // Toggle Complete
+  // markera som klar eller inte klar
   const toggleTask = (id: number) => {
     setTasks(
       tasks.map((task) =>
@@ -65,28 +65,28 @@ export default function TaskManager() {
     );
   };
 
-  // Delete Task
+  // ta bort en task
   const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // Start Editing
+  // börja redigera en task
   const handleEdit = (task: Task) => {
     setEditingId(task.id);
   };
 
-  // Update Task
+  // uppdatera den ändrade tasken
   const updateTask = (id: number, text: string) => {
     setTasks(tasks.map((task) => (task.id === id ? { ...task, text } : task)));
     setEditingId(null);
   };
 
-  // Filtered & Searched Tasks
+  // filtrerar tasks och söker också
   const filteredTasks = tasks
     .filter((task) => {
       if (filter === "pending") return task.status === "pending";
       if (filter === "done") return task.status === "done";
-      return true; // "all"
+      return true; // visa alla
     })
     .filter((task) =>
       task.text.toLowerCase().includes(searchText.toLowerCase()),
@@ -102,17 +102,17 @@ export default function TaskManager() {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#e0f0ec] py-6 sm:py-10 px-4 gap-6 sm:gap-10">
-      {/* Outer card with darker green */}
+      {/* yttre kort med mörkare grön */}
       <div className="w-full max-w-sm sm:max-w-md bg-[#a6ccbf] rounded-2xl p-4 sm:p-6 flex flex-col flex-1 min-h-0">
-        {/* Main card with black border and no color */}
+        {/* huvudkortet med svart kant */}
         <div className="w-full border-2 border-black p-4 sm:p-5 flex flex-col flex-1 min-h-0">
-          {/* Header image now inside the card */}
+          {/* header bilden inuti kortet */}
           <img
             src={headerImg}
             alt="Today's 2DO Header"
             className="mx-auto mt-1 mb-6 sm:mb-7 w-40 sm:w-56"
           />
-          {/* Labels above the bar */}
+          {/* labels över inputfältet */}
           <div className="flex justify-between items-center mb-2 sm:mb-3 px-2">
             <span className="text-xs sm:text-sm font-semibold text-black">
               What should we do today?
@@ -121,7 +121,7 @@ export default function TaskManager() {
               Priority
             </span>
           </div>
-          {/* Add Task Bar (input + select) */}
+          {/* inputfältet för ny task och priority dropdown */}
           <div className="flex flex-col sm:flex-row w-full mb-3 sm:mb-4 items-stretch sm:items-center gap-2 sm:gap-3">
             <div className="flex bg-[#f5f7ed] rounded-lg shadow-inner items-center px-2 py-1 flex-1 relative">
               <input
@@ -132,7 +132,7 @@ export default function TaskManager() {
                 onKeyDown={(e) => e.key === "Enter" && addTask()}
               />
               <div className="flex-1" />
-              {/* Priority select button with background */}
+              {/* priority dropdown med bakgrund */}
               <div className="relative flex items-center bg-black/10 rounded px-2 py-1 ml-1 gap-1.5">
                 <span className="text-xs sm:text-sm font-semibold text-black min-w-fit">
                   {newPriority === "low"
@@ -169,9 +169,9 @@ export default function TaskManager() {
               ADD
             </button>
           </div>
-          {/* Tabs and Search Row */}
+          {/* filter-knapparna och sök */}
           <div className="flex items-center w-full mb-2 sm:mb-3 h-10 sm:h-12 gap-1 sm:gap-2">
-            {/* Filter Buttons */}
+            {/* knapparna för att filtrera */}
             <div className="flex gap-1 sm:gap-2">
               <button
                 className={`px-2 sm:px-3 py-1 sm:py-2 rounded text-xs sm:text-sm ${
@@ -198,9 +198,9 @@ export default function TaskManager() {
                 Done
               </button>
             </div>
-            {/* Spacer to push search and filter icon to the right */}
+            {/* mellanslag så att ikoner hamnar till höger */}
             <div className="flex-1"></div>
-            {/* Search Input + Icons */}
+            {/* sökfältet och ikonerna */}
             <div className="flex items-center gap-1 sm:gap-2">
               {showSearch && (
                 <input
@@ -221,7 +221,7 @@ export default function TaskManager() {
                 />
               </button>
             </div>
-            {/* Filter Icon aligned right and centered */}
+            {/* filter ikonen till höger */}
             <div className="flex items-center h-full ml-1 sm:ml-2 mr-2 sm:mr-4">
               <FilterIcon
                 className="w-5 h-5 sm:w-6 sm:h-6"
@@ -229,7 +229,7 @@ export default function TaskManager() {
               />
             </div>
           </div>
-          {/* Task List */}
+          {/* listan med alla tasks */}
           <div className="w-full space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 overflow-y-auto">
             {displayedTasks.map((task) => (
               <TaskRow
@@ -244,12 +244,12 @@ export default function TaskManager() {
             ))}
           </div>
 
-          {/* Dotted line separator */}
+          {/* prickig linje som separerar */}
           <div className="my-4 sm:my-6 mx-1 mt-auto">
             <hr className="border-dotted border-t-2 border-gray-400" />
           </div>
 
-          {/* Weather Widget */}
+          {/* väder widget */}
           <div className="mt-3 sm:mt-4 w-full flex justify-center pb-2">
             <Weather />
           </div>
