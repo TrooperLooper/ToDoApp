@@ -12,12 +12,19 @@ export default function Weather() {
     const fetchWeather = async (lat: number, lon: number) => {
       try {
         const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+        if (!apiKey) {
+          console.error("Weather API key not found in environment variables");
+          setCondition("standard");
+          setLoading(false);
+          return;
+        }
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         const response = await fetch(url);
         const data = await response.json();
         setTemp(Math.round(data.main.temp));
         setCondition(data.weather[0].main); // e.g. "Clear", "Rain", "Clouds"
-      } catch {
+      } catch (error) {
+        console.error("Weather fetch error:", error);
         setTemp(null);
         setCondition("standard");
       } finally {
@@ -28,14 +35,17 @@ export default function Weather() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log("Geolocation enabled:", position.coords);
           fetchWeather(position.coords.latitude, position.coords.longitude);
         },
-        () => {
+        (error) => {
+          console.warn("Geolocation denied or unavailable:", error.message);
           // If user denies location, fallback to a default (e.g. Helsingborg)
           fetchWeather(56.0465, 12.6945);
         },
       );
     } else {
+      console.warn("Geolocation not available, using fallback location");
       // If geolocation not available, fallback to a default
       fetchWeather(56.0465, 12.6945);
     }
@@ -43,10 +53,11 @@ export default function Weather() {
 
   let img = weatherStandard;
   let message = "Clear skies today";
-  if (condition.toLowerCase().includes("sun")) {
+  const conditionLower = condition.toLowerCase();
+  if (conditionLower.includes("clear") || conditionLower.includes("sunny")) {
     img = weatherSun;
     message = "Remember your sunglasses today";
-  } else if (condition.toLowerCase().includes("rain")) {
+  } else if (conditionLower.includes("rain") || conditionLower.includes("drizzle")) {
     img = weatherRain;
     message = "Remember your umbrella today";
   }
